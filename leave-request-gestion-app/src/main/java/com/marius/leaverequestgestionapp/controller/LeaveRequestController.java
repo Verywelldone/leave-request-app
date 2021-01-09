@@ -5,6 +5,7 @@ import com.marius.leaverequestgestionapp.model.User;
 import com.marius.leaverequestgestionapp.model.dto.LeaveRequestDTO;
 import com.marius.leaverequestgestionapp.repository.UserRepository;
 import com.marius.leaverequestgestionapp.service.LeaveRequestService;
+import com.marius.leaverequestgestionapp.service.util.UserUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -21,12 +22,15 @@ public class LeaveRequestController {
     @Autowired
     LeaveRequestService leaveRequestService;
 
+    @Autowired
+    UserUtils userUtils;
+
     @ModelAttribute("leaveRequestDTO")
     @RequestMapping(value = {"/home", "/create-leave-request"}, method = RequestMethod.GET)
     public ModelAndView createLeaveRequestModelView() {
         ModelAndView model = new ModelAndView("user/home");
 
-        User user = getUserFromSession();
+        User user = userUtils.getUserFromSession();
 
         model.addObject("name", user.getName());
         model.addObject("leaveRequestDTO", new LeaveRequestDTO());
@@ -40,7 +44,7 @@ public class LeaveRequestController {
         modelAndView.addObject(leaveRequestDTO);
         modelAndView.setViewName("user/home");
 
-        User user = getUserFromSession();
+        User user = userUtils.getUserFromSession();
         leaveRequestDTO.setUserId(user.getId());
 
         System.out.println(leaveRequestDTO);
@@ -59,7 +63,7 @@ public class LeaveRequestController {
     @GetMapping("/my-leave-requests")
     public ModelAndView listLeaveRequestsView() {
         ModelAndView modelAndView = new ModelAndView();
-        LeaveRequest leaveRequest = leaveRequestService.getLeaveRequest(getUserFromSession());
+        LeaveRequest leaveRequest = leaveRequestService.getLeaveRequest(userUtils.getUserFromSession());
         modelAndView.setViewName("user/userLeaveRequests");
         modelAndView.addObject("leaveRequest", leaveRequest);
 
@@ -75,10 +79,6 @@ public class LeaveRequestController {
     }
 
 
-    private User getUserFromSession() {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        return userRepository.findByEmail(auth.getName());
-    }
 
 
 }

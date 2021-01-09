@@ -52,8 +52,13 @@ public class LeaveRequestImpl implements LeaveRequestService {
 
         System.out.println(leaveRequest.toString());
         leaveRequestRepository.save(leaveRequest);
+        createSubrequests();
 
         return true;
+    }
+
+    private void createSubrequests() {
+
     }
 
     @Override
