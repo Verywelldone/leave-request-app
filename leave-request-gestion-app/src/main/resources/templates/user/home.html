@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Sign in</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet"
+          id="bootstrap-css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.min.css">
+</head>
+
+<body>
+
+<div class="container">
+    <form th:action="@{/home}" method="post" th:object="${leaveRequestDTO}">
+        <h1 class="h3 mb-3 font-weight-normal">Create Leave Request for user <span th:utext="${name}"></span> </h1>
+
+        <input type="date" pattern="\d{1,2}/\d{1,2}/\d{4}" id="startDate" class="form-control" th:field="*{startDate}">
+
+        <input type="date" pattern="\d{1,2}/\d{1,2}/\d{4}" class="form-control" th:field="*{endDate}">
+
+        <button class="btn btn-sm btn-primary" type="submit">Sign in</button>
+    </form>
+</div>
+
+</body>
+</html>
