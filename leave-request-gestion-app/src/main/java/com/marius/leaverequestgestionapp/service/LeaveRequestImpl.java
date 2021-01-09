@@ -1,6 +1,7 @@
 package com.marius.leaverequestgestionapp.service;
 
 import com.marius.leaverequestgestionapp.model.LeaveRequest;
+import com.marius.leaverequestgestionapp.model.User;
 import com.marius.leaverequestgestionapp.model.dto.LeaveRequestDTO;
 import com.marius.leaverequestgestionapp.repository.LeaveRequestRepository;
 import com.marius.leaverequestgestionapp.repository.TeamRepository;
@@ -32,10 +33,12 @@ public class LeaveRequestImpl implements LeaveRequestService {
     public boolean createLeaveRequest(LeaveRequestDTO leaveRequestDTO) throws Exception {
 
         if (requestLengthIsHigherThanSixMonths(leaveRequestDTO.getStartDate(), leaveRequestDTO.getEndDate())) {
+            System.out.println("Intra in requestLengthIsHigherThanSixMonths si returneaza: " + requestLengthIsHigherThanSixMonths(leaveRequestDTO.getStartDate(), leaveRequestDTO.getEndDate()));
             throw new Exception("You can't create a leave request longer than 6 months.");
         }
 
         if (startDateIsFiveDaysAhead(leaveRequestDTO.getStartDate())) {
+            System.out.println("Intra in startDateIsFiveDaysAhead si returneaza: " + startDateIsFiveDaysAhead(leaveRequestDTO.getStartDate()));
             throw new Exception("You can't create a leave request 5 days before starting date.");
         }
 
@@ -48,7 +51,6 @@ public class LeaveRequestImpl implements LeaveRequestService {
                 .build();
 
         System.out.println(leaveRequest.toString());
-        System.out.println("Intra in service");
         leaveRequestRepository.save(leaveRequest);
 
         return true;
@@ -57,6 +59,11 @@ public class LeaveRequestImpl implements LeaveRequestService {
     @Override
     public ResponseEntity<String> updateLeaveRequest(LeaveRequestDTO leaveRequest) {
         return null;
+    }
+
+    @Override
+    public LeaveRequest getLeaveRequest(User user) {
+        return leaveRequestRepository.findByEmployee(user);
     }
 
     private boolean requestLengthIsHigherThanSixMonths(Date startDate, Date endDate) {

@@ -1,5 +1,6 @@
 package com.marius.leaverequestgestionapp.controller;
 
+import com.marius.leaverequestgestionapp.model.LeaveRequest;
 import com.marius.leaverequestgestionapp.model.User;
 import com.marius.leaverequestgestionapp.model.dto.LeaveRequestDTO;
 import com.marius.leaverequestgestionapp.repository.UserRepository;
@@ -37,6 +38,7 @@ public class LeaveRequestController {
     public ModelAndView createLeaveRequestAction(@ModelAttribute("leaveRequestDTO") LeaveRequestDTO leaveRequestDTO) throws Exception {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject(leaveRequestDTO);
+        modelAndView.setViewName("user/home");
 
         User user = getUserFromSession();
         leaveRequestDTO.setUserId(user.getId());
@@ -47,10 +49,28 @@ public class LeaveRequestController {
         try {
             leaveRequestService.createLeaveRequest(leaveRequestDTO);
         } catch (Exception e) {
+//            TODO: Add error object + message in html
             modelAndView.setViewName("user/errors");
         }
 
-        modelAndView.setViewName("user/home");
+        return modelAndView;
+    }
+
+    @GetMapping("/my-leave-requests")
+    public ModelAndView listLeaveRequestsView() {
+        ModelAndView modelAndView = new ModelAndView();
+        LeaveRequest leaveRequest = leaveRequestService.getLeaveRequest(getUserFromSession());
+        modelAndView.setViewName("user/userLeaveRequests");
+        modelAndView.addObject("leaveRequest", leaveRequest);
+
+        return modelAndView;
+    }
+
+    @GetMapping("/error")
+    public ModelAndView errorHandling() {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("user/errors");
+
         return modelAndView;
     }
 
