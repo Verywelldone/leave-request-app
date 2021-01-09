@@ -41,7 +41,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/").permitAll()
                 .antMatchers("/login").permitAll()
                 .antMatchers("/home").authenticated()
-                .antMatchers("/home/leave-requests").hasRole("MANAGER")
+                .antMatchers("/management").hasRole("MANAGER")
                 .anyRequest().authenticated()
                 .and().csrf().disable()
                 .formLogin().loginPage("/login")

@@ -30,7 +30,7 @@ public class AuthController {
         return model;
     }
 
-    void encryptPassword(){
+    void encryptPassword() {
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
         System.out.println(bCryptPasswordEncoder.encode("mihai"));
     }

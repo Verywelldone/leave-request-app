@@ -7,6 +7,7 @@ import com.marius.leaverequestgestionapp.repository.UserRepository;
 import com.marius.leaverequestgestionapp.service.LeaveRequestService;
 import com.marius.leaverequestgestionapp.service.util.UserUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -22,14 +23,11 @@ public class LeaveRequestApprovalController {
     @Autowired
     LeaveRequestService leaveRequestService;
 
-    @GetMapping("/home/leave-requests")
+    @GetMapping("/management")
+    @Secured("manager")
     public ModelAndView createLeaveRequestModelView() {
         System.out.println("APPROVE");
         ModelAndView model = new ModelAndView("user/leaveRequestApproval");
-
-
-
-
 
         return model;
     }
