@@ -20,8 +20,11 @@ public class LeaveRequestApproval {
     private long id;
 
     @Column
-    private long leaveRequest;
+    private long userId;
 
     @Column
-    private long manager;
+    private long managerId;
+
+    @Column
+    private String status;
 }

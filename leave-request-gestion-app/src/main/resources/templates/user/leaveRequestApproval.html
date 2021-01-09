@@ -11,7 +11,41 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.min.css">
 </head>
 
+
+<style>
+    td {
+        text-align: center;
+    }
+</style>
 <body>
-<p>hello approve</p>
+
+<div class="container">
+
+    <h1>Pending requests</h1>
+
+    <table class="table table-hover table-dark">
+        <tr>
+            <td>Name</td>
+            <td>Start Date</td>
+            <td>End Date</td>
+            <td>Status</td>
+            <td>Aprove</td>
+            <td>Deny</td>
+        </tr>
+        <tr th:each="leaveRequest: ${leaveRequests}">
+            <td th:text="${leaveRequest.getName()}"></td>
+            <td th:text="${leaveRequest.getStartDate()}"></td>
+            <td th:text="${leaveRequest.getEndDate()}"></td>
+            <td th:text="${leaveRequest.getStatus()}"></td>
+            <td>
+                <button>Approve</button>
+            </td>
+            <td>
+                <button>Deny</button>
+            </td>
+        </tr>
+    </table>
+</div>
+
 </body>
 </html>

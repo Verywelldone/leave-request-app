@@ -11,6 +11,6 @@ import java.util.List;
 @Repository
 public interface LeaveRequestApprovalRepository extends JpaRepository<LeaveRequestApproval, Long> {
 
-    List<LeaveRequestApproval> findAllByManager(long managerId);
+    List<LeaveRequestApproval> findAllByManagerId(long managerId);
 
 }

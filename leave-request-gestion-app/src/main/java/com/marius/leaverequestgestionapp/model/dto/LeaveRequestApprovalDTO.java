@@ -12,7 +12,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class LeaveRequestApprovalDTO extends LeaveRequestDTO {
+public class LeaveRequestApprovalDTO {
 
     String name;
 
@@ -21,6 +21,8 @@ public class LeaveRequestApprovalDTO extends LeaveRequestDTO {
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date endDate;
+
+    String status;
 
 
 }
