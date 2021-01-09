@@ -9,6 +9,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface LeaveRequestApprovalRepository extends JpaRepository<LeaveRequestApproval, Long> {
 
-    LeaveRequestApproval get(long leaveRequestId);
+    LeaveRequestApproval findAllByManager(long managerId);
 
 }
